@@ -78,6 +78,8 @@ const TARGETING_QUERY = gql`
         picture
         targeted
         pictureUrl
+        destroyed
+        moving
       }
     }
     phasers(simulatorId: $simulatorId) {
@@ -147,6 +149,8 @@ const TARGETING_SUB = gql`
         picture
         targeted
         pictureUrl
+        destroyed
+        moving
       }
     }
   }
@@ -413,7 +417,10 @@ class Targeting extends Component {
                     </div>
                   )}
                 </Measure>
-                <small>Follow a contact with your mouse to target.</small>
+                <small>
+                  Follow a contact with your mouse to target. Click to target
+                  stationary contacts.
+                </small>
               </div>
             )}
           </Col>

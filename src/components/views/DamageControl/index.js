@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { Container, Row, Col, Button, Card, CardBody } from "reactstrap";
 import { graphql, withApollo } from "react-apollo";
 import Tour from "reactour";
+import FontAwesome from "react-fontawesome";
 
 import "./style.css";
 
@@ -13,6 +14,7 @@ const SYSTEMS_SUB = gql`
       name
       damage {
         damaged
+        destroyed
         report
         requested
         reactivationCode
@@ -248,11 +250,20 @@ class DamageControl extends Component {
                       key={s.id}
                       className={`${
                         this.state.selectedSystem === s.id ? "selected" : ""
+                      } ${s.damage.requested ? "requested" : ""} ${
+                        s.damage.report ? "report" : ""
+                      } ${s.damage.validate ? "validate" : ""} ${
+                        s.damage.destroyed ? "destroyed" : ""
+                      }`}
+                      onClick={
+                        s.damage.destroyed
+                          ? () => {}
+                          : this.selectSystem.bind(this, s.id)
                       }
-          ${s.damage.requested ? "requested" : ""}
-          ${s.damage.report ? "report" : ""}`}
-                      onClick={this.selectSystem.bind(this, s.id)}
                     >
+                      {s.damage.validate ? (
+                        <FontAwesome name="refresh" spin />
+                      ) : null}{" "}
                       {this.systemName(s)}
                     </p>
                   ))
@@ -411,6 +422,7 @@ const SYSTEMS_QUERY = gql`
       name
       damage {
         damaged
+        destroyed
         report
         requested
         reactivationCode

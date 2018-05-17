@@ -44,6 +44,7 @@ const SENSOR_SUB = gql`
         cloaked
         destroyed
         locked
+        disabled
       }
     }
   }
@@ -240,11 +241,11 @@ class GridCore extends Component {
     const speeds = [
       { value: "1000", label: "Instant" },
       { value: "5", label: "Warp" },
-      { value: "2", label: "Very Fast" },
-      { value: "1", label: "Fast" },
-      { value: "0.6", label: "Moderate" },
-      { value: "0.4", label: "Slow" },
-      { value: "0.1", label: "Very Slow" }
+      { value: "1", label: "Very Fast" },
+      { value: "0.6", label: "Fast" },
+      { value: "0.4", label: "Moderate" },
+      { value: "0.2", label: "Slow" },
+      { value: "0.05", label: "Very Slow" }
     ];
 
     return (
@@ -409,6 +410,7 @@ const GRID_QUERY = gql`
         cloaked
         destroyed
         locked
+        disabled
       }
     }
   }

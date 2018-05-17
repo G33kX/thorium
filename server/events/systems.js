@@ -94,12 +94,12 @@ App.on("updateSystemName", ({ systemId, name, displayName }) => {
   sys.updateName({ name, displayName });
   sendUpdate(sys);
 });
-App.on("damageSystem", ({ systemId, report }) => {
+App.on("damageSystem", ({ systemId, report, destroyed }) => {
   let sys = App.systems.find(s => s.id === systemId);
   if (!sys) {
     sys = App.dockingPorts.find(s => s.id === systemId);
   }
-  sys.break(report);
+  sys.break(report, destroyed);
   sendUpdate(sys);
 });
 App.on("damageReport", ({ systemId, report }) => {
@@ -344,4 +344,42 @@ App.on("validateDamageStep", ({ id }) => {
     })
   );
   sendUpdate(sys);
+});
+App.on("changeSystemDefaultPowerLevel", ({ id, level }) => {
+  let sys = App.systems.find(s => s.id === id);
+  sys.setDefaultPowerLevel(level);
+  sendUpdate(sys);
+});
+App.on("fluxSystemPower", ({ id, simulatorId, all }) => {
+  function randomFromList(list) {
+    if (!list) return;
+    const length = list.length;
+    const index = Math.floor(Math.random() * length);
+    return list[index];
+  }
+  function fluxPower(sys, all) {
+    const level = Math.round(
+      (1 + Math.random()) * (Math.random() > 0.5 ? -1 : 1)
+    );
+
+    sys.setPower(Math.max(0, sys.power.power + level));
+    if (all) {
+      pubsub.publish("systemsUpdate", App.systems);
+    } else {
+      sendUpdate(sys);
+    }
+  }
+  if (id) {
+    // Get a number between -2 and 2
+    let sys = App.systems.find(s => s.id === id);
+    fluxPower(sys);
+  } else if (simulatorId) {
+    const systems = App.systems.filter(s => s.simulatorId === simulatorId);
+    if (!all) {
+      const sys = randomFromList(systems);
+      fluxPower(sys, true);
+    } else {
+      systems.forEach(s => fluxPower(s));
+    }
+  }
 });

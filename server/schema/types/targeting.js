@@ -37,6 +37,7 @@ type TargetingClass {
   pictureUrl: String
   speed: Float
   quadrant: Int
+  moving: Boolean
 }
 
 input TargetClassInput {
@@ -49,6 +50,7 @@ input TargetClassInput {
   pictureUrl: String
   speed: Float
   quadrant: Int
+  moving: Boolean
 }
 
 type TargetingContact {
@@ -64,5 +66,7 @@ type TargetingContact {
   pictureUrl: String
   speed: Float
   quadrant: Int
+  destroyed: Boolean
+  moving: Boolean
 }
 `;

@@ -95,6 +95,18 @@ class ProbeControl extends Component {
       variables
     });
   };
+  renderEquipment = () => {
+    if (this.props.data.loading || !this.props.data.probes) return null;
+    const probes = this.props.data.probes[0];
+    const { selectedProbe } = this.state;
+    const probe = probes.probes.find(p => p.id === selectedProbe);
+    if (!probe) return null;
+    return probe.equipment.map(e => (
+      <p key={e.id}>
+        ({e.count}) {e.name}
+      </p>
+    ));
+  };
   render() {
     if (this.props.data.loading || !this.props.data.probes) return null;
     const probes = this.props.data.probes[0];
@@ -119,46 +131,43 @@ class ProbeControl extends Component {
           </Col>
           {selectedProbe && (
             <Col sm={3} style={{ height: "100%" }}>
-              {probes.probes
-                .find(p => p.id === selectedProbe)
-                .equipment.map(e => (
-                  <p key={e.id}>
-                    ({e.count}) {e.name}
-                  </p>
-                ))}
+              {this.renderEquipment()}
             </Col>
           )}
           {selectedProbe && (
             <Col sm={6} style={{ height: "100%" }}>
-              <Row>
-                <Col sm={12}>
-                  <OutputField
-                    alert={
-                      probes.probes.find(p => p.id === selectedProbe).querying
-                    }
-                  >
-                    {probes.probes.find(p => p.id === selectedProbe).query}
-                  </OutputField>
-                </Col>
-              </Row>
-              <Row style={{ height: "100%" }}>
-                <Col sm={12} style={{ height: "100%" }}>
-                  <TypingField
-                    style={{ height: "calc(100% - 60px)", textAlign: "left" }}
-                    controlled
-                    value={this.state.responseString}
-                    onChange={evt =>
-                      this.setState({ responseString: evt.target.value })
-                    }
-                  />
+              <div
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column"
+                }}
+              >
+                <OutputField
+                  style={{ flex: 1, whiteSpace: "pre-wrap" }}
+                  alert={
+                    probes.probes.find(p => p.id === selectedProbe).querying
+                  }
+                >
+                  {probes.probes.find(p => p.id === selectedProbe).query}
+                </OutputField>
+                <TypingField
+                  style={{ flex: 3, textAlign: "left" }}
+                  controlled
+                  value={this.state.responseString}
+                  onChange={evt =>
+                    this.setState({ responseString: evt.target.value })
+                  }
+                />
+                <div>
                   <Button size="sm" onClick={this.response}>
                     Send Response
                   </Button>
                   <Button size="sm" color="danger" onClick={this.destroyProbe}>
                     Destroy
                   </Button>
-                </Col>
-              </Row>
+                </div>
+              </div>
             </Col>
           )}
         </Row>

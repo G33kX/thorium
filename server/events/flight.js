@@ -86,7 +86,11 @@ function addAspects(template, sim) {
           App.isochips.push(new Classes.Isochip(isochip));
         }
         if (newAspect.power && newAspect.power.powerLevels.length) {
-          newAspect.power.power = newAspect.power.powerLevels[0];
+          newAspect.power.power = newAspect.power.defaultLevel
+            ? newAspect.power.powerLevels[newAspect.power.defaultLevel]
+              ? newAspect.power.powerLevels[newAspect.power.defaultLevel]
+              : newAspect.power.powerLevels[0]
+            : newAspect.power.powerLevels[0];
         }
         if (newAspect.power && !newAspect.power.powerLevels.length) {
           newAspect.power.power = 0;
@@ -102,6 +106,7 @@ function addAspects(template, sim) {
     App.simulators.find(s => s.id === template.simulatorId).panels || [];
   panels.forEach(p => {
     const panel = App.softwarePanels.find(s => s.id === p);
+    if (!panel) return;
     const id = uuid.v4();
     sim.stations.forEach(s => {
       s.cards.forEach(c => {

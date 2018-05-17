@@ -91,6 +91,12 @@ export const SystemsMutations = {
   },
   validateDamageStep(root, args, context) {
     App.handleEvent(args, "validateDamageStep", context);
+  },
+  changeSystemDefaultPowerLevel(root, args, context) {
+    App.handleEvent(args, "changeSystemDefaultPowerLevel", context);
+  },
+  fluxSystemPower(root, args, context) {
+    App.handleEvent(args, "fluxSystemPower", context);
   }
 };
 

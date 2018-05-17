@@ -15,7 +15,12 @@
     background-color: #333;
     z-index: 1000;
   }
-
+  .contact-disabled {
+    -webkit-mask-image: url("./noise.png");
+    -webkit-mask-size: cover;
+    mask-image: url("./noise.png");
+    mask-size: cover;
+  }
   .sensors-interference {
     position: absolute;
     width: 100%;
@@ -185,6 +190,38 @@
       border-left: 1px solid red;
       right: -17px;
       bottom: -17px;
+    }
+  }
+  .contact-selection {
+    position: relative;
+    div {
+      width: 8px;
+      height: 8px;
+      position: absolute;
+    }
+    .tl {
+      border-top: 2px solid rgb(0, 128, 255);
+      border-left: 2px solid rgb(0, 128, 255);
+      left: -3px;
+      top: -3px;
+    }
+    .tr {
+      border-top: 2px solid rgb(0, 128, 255);
+      border-right: 2px solid rgb(0, 128, 255);
+      right: -34px;
+      top: -3px;
+    }
+    .bl {
+      border-bottom: 2px solid rgb(0, 128, 255);
+      border-left: 2px solid rgb(0, 128, 255);
+      left: -3px;
+      bottom: -34px;
+    }
+    .br {
+      border-bottom: 2px solid rgb(0, 128, 255);
+      border-right: 2px solid rgb(0, 128, 255);
+      right: -34px;
+      bottom: -34px;
     }
   }
 }

@@ -53,7 +53,10 @@ class DamageMonitoring extends Component {
       <div className="damage-monitoring">
         <h1>Damage Monitor</h1>
         <div className="ship-view">
-          <Asset asset="/Ship Views/Left" simulatorId={this.props.simulator.id}>
+          <Asset
+            asset="/Ship Views/Right"
+            simulatorId={this.props.simulator.id}
+          >
             {({ src }) => {
               return (
                 <div
@@ -68,7 +71,10 @@ class DamageMonitoring extends Component {
                   }}
                   draggable="false"
                 >
-                  <div className="scanner-mask">
+                  <div
+                    className="scanner-mask"
+                    style={{ WebkitMaskImage: `url("${src}")` }}
+                  >
                     <div className="scanner-holder">
                       <div className="scanner" />
                     </div>

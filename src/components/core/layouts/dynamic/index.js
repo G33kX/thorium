@@ -11,6 +11,7 @@ import {
   createDefaultToolbarButton
 } from "react-mosaic-component";
 import Picker from "./picker";
+import CoreError from "../coreError";
 import "react-mosaic-component/react-mosaic-component.css";
 import "./dynamic.css";
 
@@ -122,9 +123,17 @@ class Dynamic extends Component {
               createNode={e => e}
             >
               {(() => {
-                if (id === "Picker") return <Picker />;
+                if (id === "Picker") {
+                  return (
+                    <Picker components={mosaicComponents(this.props.mosaic)} />
+                  );
+                }
                 const Comp = Cores[id];
-                return <Comp {...this.props} />;
+                return (
+                  <CoreError>
+                    <Comp {...this.props} />
+                  </CoreError>
+                );
               })()}
             </MosaicWindow>
           );

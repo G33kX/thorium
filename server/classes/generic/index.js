@@ -7,6 +7,7 @@ import {
 } from "./damageReports/constants";
 import * as damageStepFunctions from "./damageReports/functions";
 import processReport from "./processReport";
+import DamageStep from "./damageStep";
 
 class Damage {
   constructor(params = {}) {
@@ -20,6 +21,7 @@ class Damage {
     this.neededReactivationCode = params.neededReactivationCode || null;
     this.exocompParts = params.exocompParts || [];
     this.validate = params.validate || false;
+    this.destroyed = params.destroyed || false;
   }
 }
 export class System {
@@ -33,7 +35,8 @@ export class System {
       ? Object.assign({}, params.power)
       : {
           power: 5,
-          powerLevels: params.extra ? [] : [5]
+          powerLevels: params.extra ? [] : [5],
+          defaultLevel: 0
         };
     this.damage = new Damage(params.damage || {});
     this.extra = params.extra || false;
@@ -67,9 +70,16 @@ export class System {
   }
   setPowerLevels(levels) {
     this.power.powerLevels = levels;
+    if (this.power.defaultLevel >= levels.length) {
+      this.power.defaultLevel = levels.length - 1;
+    }
   }
-  break(report) {
+  setDefaultPowerLevel(level) {
+    this.power.defaultLevel = level;
+  }
+  break(report, destroyed) {
     this.damage.damaged = true;
+    if (destroyed) this.damage.destroyed = true;
     this.damage.report = processReport(report, this);
     this.damage.requested = false;
     this.damage.currentStep = 0;
@@ -290,6 +300,7 @@ ${report}
   }
   repair() {
     this.damage.damaged = false;
+    this.damage.destroyed = false;
     this.damage.report = null;
     this.damage.requested = false;
     this.damage.neededReactivationCode = null;
