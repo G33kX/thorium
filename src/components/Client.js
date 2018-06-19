@@ -283,6 +283,7 @@ const CLIENT_SUB = gql`
         name
         alertlevel
         layout
+        bridgeOfficerMessaging
       }
       station {
         name
@@ -311,6 +312,7 @@ const SIMULATOR_SUB = gql`
       name
       alertlevel
       layout
+      bridgeOfficerMessaging
     }
   }
 `;
@@ -473,11 +475,13 @@ class ClientView extends Component {
       `,
       variables: { client: this.props.clientId }
     });
-    window.oncontextmenu = function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
-    };
+    if (process.env.NODE_ENV === "production") {
+      window.oncontextmenu = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      };
+    }
 
     // Sound Subscription
     this.soundSub = this.props.client
@@ -504,7 +508,6 @@ class ClientView extends Component {
       })
       .subscribe({
         next: ({ data: { cancelSound } }) => {
-          console.log(cancelSound);
           this.props.removeSound(cancelSound);
         }
       });
@@ -568,6 +571,7 @@ const ClientQuery = gql`
         name
         alertlevel
         layout
+        bridgeOfficerMessaging
       }
       station {
         name

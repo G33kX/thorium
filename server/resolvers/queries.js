@@ -41,6 +41,8 @@ import { SurveyFormQueries } from "./surveyform.js";
 import { ObjectiveQueries } from "./objective.js";
 import { KeyboardQueries } from "./keyboard.js";
 import { ComputerCoreQueries } from "./computerCore.js";
+import { SickbayQueries } from "./sickbay.js";
+import { ThoriumQueries } from "./thorium.js";
 
 const queryMap = Object.assign(
   {},
@@ -86,7 +88,9 @@ const queryMap = Object.assign(
   SurveyFormQueries,
   ObjectiveQueries,
   KeyboardQueries,
-  ComputerCoreQueries
+  ComputerCoreQueries,
+  SickbayQueries,
+  ThoriumQueries
 );
 
 export default queryMap;

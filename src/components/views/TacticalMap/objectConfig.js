@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { Row, Col, Input, Label, FormGroup } from "reactstrap";
+import { Row, Col, Input, Label, FormGroup, Button } from "reactstrap";
 import { ChromePicker } from "react-color";
 import FileExplorer from "./fileExplorer";
 
@@ -79,7 +79,61 @@ export default class ObjectConfig extends Component {
     return (
       <div className="tactical-object">
         {objectId ? (
-          <ObjectSettings {...selectedObject} updateObject={updateObject} />
+          <ObjectSettings
+            {...selectedObject}
+            updateObject={updateObject}
+            duplicate={() => {
+              const {
+                id,
+                layerId,
+                __typename,
+                location,
+                destination,
+                velocity: { x, y, z },
+                ...object
+              } = selectedObject;
+              const item = {
+                ...object,
+                velocity: {
+                  x,
+                  y,
+                  z
+                },
+                location: {
+                  x: location.x + 0.05,
+                  y: location.y + 0.05,
+                  z: location.z + 0.05
+                },
+                destination: {
+                  x: destination.x + 0.05,
+                  y: destination.y + 0.05,
+                  z: destination.z + 0.05
+                }
+              };
+              const mutation = gql`
+                mutation AddTacticalItem(
+                  $mapId: ID!
+                  $layerId: ID!
+                  $item: TacticalItemInput!
+                ) {
+                  addTacticalMapItem(
+                    mapId: $mapId
+                    layerId: $layerId
+                    item: $item
+                  )
+                }
+              `;
+              const variables = {
+                mapId: this.props.tacticalMapId,
+                layerId: this.props.layerId,
+                item
+              };
+              this.props.client.mutate({
+                mutation,
+                variables
+              });
+            }}
+          />
         ) : (
           <FileExplorer
             onMouseDown={this.mouseDown}
@@ -129,13 +183,15 @@ const ObjectSettings = ({
   flash,
   ijkl,
   wasd,
+  opacity,
   updateObject,
   //thrusters,
-  rotation
+  rotation,
   //rotationMatch
+  duplicate
 }) => {
   return (
-    <Row>
+    <Row className="tactical-object-config">
       <Col>
         <FormGroup style={{ marginBottom: 0 }}>
           <Label>
@@ -165,6 +221,19 @@ const ObjectSettings = ({
             />
           </Label>
         </FormGroup>
+        <FormGroup style={{ marginBottom: 0 }}>
+          <Label>
+            Opacity <small>Can be fully transparent on viewscreen</small>
+            <Input
+              type="range"
+              min="0"
+              max="1"
+              step={0.01}
+              value={opacity}
+              onChange={evt => updateObject("opacity", evt.target.value)}
+            />
+          </Label>
+        </FormGroup>
         <FormGroup>
           <Label>
             Speed
@@ -175,12 +244,12 @@ const ObjectSettings = ({
               onChange={evt => updateObject("speed", evt.target.value)}
             >
               <option value="1000">Instant</option>
-              <option value="2">Warp</option>
-              <option value="1">Very Fast</option>
-              <option value="0.6">Fast</option>
-              <option value="0.4">Moderate</option>
-              <option value="0.1">Slow</option>
-              <option value="0.05">Very Slow</option>
+              <option value="1.5">Warp</option>
+              <option value="0.2">Very Fast</option>
+              <option value="0.08">Fast</option>
+              <option value="0.05">Moderate</option>
+              <option value="0.02">Slow</option>
+              <option value="0.008">Very Slow</option>
             </Input>
           </Label>
         </FormGroup>
@@ -273,6 +342,11 @@ const ObjectSettings = ({
               onChange={evt => updateObject("fontSize", evt.target.value)}
             />
           </Label>
+        </FormGroup>
+        <FormGroup>
+          <Button color="success" onClick={duplicate}>
+            Duplicate
+          </Button>
         </FormGroup>
       </Col>
       <Col>

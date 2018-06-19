@@ -72,19 +72,21 @@ class TorpedoLoading extends Component {
     if (!torpedos) return null;
     return (
       <div className="torpedo-loading">
-        {torpedos.map(
-          t =>
-            torpedos.length > (this.props.maxLaunchers || Infinity) ? (
+        {torpedos.map(t => {
+          if (torpedos.length > (this.props.maxLaunchers || Infinity)) {
+            return (
               <TorpedoFire key={t.id} torpedo={t} client={this.props.client} />
-            ) : (
-              <TorpedoLoader
-                key={t.id}
-                torpedo={t}
-                targeting={this.props.targeting}
-                client={this.props.client}
-              />
-            )
-        )}
+            );
+          }
+          return (
+            <TorpedoLoader
+              key={t.id}
+              torpedo={t}
+              targeting={this.props.targeting}
+              client={this.props.client}
+            />
+          );
+        })}
         {this.props.clientObj && (
           <Tour
             steps={trainingSteps}

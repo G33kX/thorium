@@ -35,6 +35,7 @@ class TacticalItem {
     this.velocity = params.velocity || { x: 0, y: 0, z: 0 };
     this.location = params.location || { x: 0, y: 0, z: 0 };
     this.destination = params.destination || { x: 0, y: 0, z: 0 };
+    this.opacity = params.opacity || 1;
     this.rotation = params.rotation || 0;
     this.wasd = params.wasd || false;
     this.ijkl = params.ijkl || false;
@@ -52,6 +53,7 @@ class TacticalItem {
     velocity,
     location,
     destination,
+    opacity,
     rotation,
     wasd,
     ijkl,
@@ -69,6 +71,7 @@ class TacticalItem {
     if (velocity) this.velocity = velocity;
     if (location) this.location = location;
     if (destination) this.destination = destination;
+    if (opacity || opacity === 0) this.opacity = opacity;
     if (rotation || rotation === 0) this.rotation = rotation;
     if (wasd || wasd === false) this.wasd = wasd;
     if (ijkl || ijkl === false) this.ijkl = ijkl;
@@ -88,6 +91,12 @@ class TacticalLayer {
     this.labels = params.labels || false;
     this.gridCols = params.gridCols || 16;
     this.gridRows = params.gridRows || 9;
+    this.advance = params.advance || false;
+    this.asset = params.asset || "";
+    this.autoplay = params.autoplay || true;
+    this.loop = params.loop || false;
+    this.playbackSpeed = params.playbackSpeed || 1;
+    this.opacity = params.opacity || 1;
     this.items = [];
     this.paths = [];
     (params.items || []).forEach(i =>
@@ -101,13 +110,33 @@ class TacticalLayer {
       )
     );
   }
-  update({ type, image, color, labels, gridCols, gridRows }) {
+  update({
+    type,
+    image,
+    color,
+    labels,
+    gridCols,
+    gridRows,
+    advance,
+    asset,
+    autoplay,
+    loop,
+    playbackSpeed,
+    opacity
+  }) {
     if (type) this.type = type;
     if (image || image === null) this.image = image;
     if (color || color === 0) this.color = color;
     if (labels || labels === false) this.labels = labels;
     if (gridCols || gridCols === 0) this.gridCols = gridCols;
     if (gridRows || gridRows === 0) this.gridRows = gridRows;
+    if (advance || advance === false) this.advance = advance;
+    if (asset || asset === "") this.asset = asset;
+    if (autoplay || autoplay === false) this.autoplay = autoplay;
+    if (loop || loop === false) this.loop = loop;
+    if (playbackSpeed || playbackSpeed === 0)
+      this.playbackSpeed = playbackSpeed;
+    if (opacity || opacity === 0) this.opacity = opacity;
   }
   addItem(item) {
     this.items.push(new TacticalItem(item));
@@ -172,9 +201,6 @@ export default class TacticalMap {
       this.layers.findIndex(t => t.id === layer),
       order
     );
-  }
-  removeLayer(layerId) {
-    this.layers = this.layers.filter(l => l.id !== layerId);
   }
   addItemToLayer(layerId, item) {
     this.layers.find(l => l.id === layerId).addItem(item);

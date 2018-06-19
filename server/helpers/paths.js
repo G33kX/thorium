@@ -1,10 +1,20 @@
 const AppDirectory = require("appdirectory");
-const paths = new AppDirectory({
+const fs = require("fs");
+const oldpaths = new AppDirectory({
   appName: "thorium",
   appAuthor: "Fyreworks LLC"
 });
-paths.userData = paths._userDataTemplate
-  .replace("{0}", "thorium")
-  .replace("/{1}", "")
-  .replace("\\{1}", "");
+
+if (!fs.existsSync(`${require("os").homedir()}/Documents`)) {
+  fs.mkdirSync(`${require("os").homedir()}/Documents`);
+}
+
+const paths = {
+  userData: `${require("os").homedir()}/Documents/thorium`,
+  oldData: oldpaths._userDataTemplate
+    .replace("{0}", "thorium")
+    .replace("/{1}", "")
+    .replace("\\{1}", "")
+};
+
 module.exports = paths;

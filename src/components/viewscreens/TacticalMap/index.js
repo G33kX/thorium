@@ -45,6 +45,7 @@ const TACTICALMAP_SUB = gql`
             z
           }
           rotation
+          opacity
           flash
           ijkl
           wasd
@@ -81,6 +82,11 @@ const TACTICALMAP_SUB = gql`
         labels
         gridCols
         gridRows
+        advance
+        asset
+        autoplay
+        loop
+        playbackSpeed
       }
       frozen
       template
@@ -201,6 +207,7 @@ class TacticalMapViewscreen extends Component {
       <div className="viewscreen-tacticalMap">
         {selectedTacticalMap && (
           <Preview
+            simulatorId={this.props.simulator.id}
             core={!this.props.cardName}
             frozen={selectedTacticalMap.frozen}
             layers={layers}
@@ -254,6 +261,7 @@ const TACTICALMAP_QUERY = gql`
             z
           }
           rotation
+          opacity
           flash
           ijkl
           wasd
@@ -290,6 +298,11 @@ const TACTICALMAP_QUERY = gql`
         labels
         gridCols
         gridRows
+        advance
+        asset
+        autoplay
+        loop
+        playbackSpeed
       }
       frozen
       template

@@ -23,6 +23,7 @@ exocomps
 panels
 stepDamage
 verifyStep
+bridgeOfficerMessaging
 requiredDamageSteps {
   id
   name
@@ -190,7 +191,7 @@ class SimulatorConfig extends Component {
             }
           ]
         });
-        this.props.history.push("/");
+        this.props.history.push("/config/simulator");
         this.setState({
           selectedProperty: null
         });
@@ -310,7 +311,9 @@ class ConfigComponentData extends React.PureComponent {
             <ConfigComponent
               Comp={Comp}
               subscribe={subscribeToMore}
-              selectedSimulator={data.simulators[0]}
+              selectedSimulator={data.simulators.find(
+                s => s.id === simulatorId
+              )}
             />
           ) : null
         }

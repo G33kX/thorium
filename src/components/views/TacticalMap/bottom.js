@@ -6,6 +6,7 @@ import { ChromePicker } from "react-color";
 import ImageConfig from "./imageConfig";
 import ObjectConfig from "./objectConfig";
 import PathConfig from "./pathConfig";
+import VideoConfig from "./videoConfig";
 
 const configs = {
   gridConfig: ({ selectedLayer, updateLayer }) => {
@@ -69,7 +70,8 @@ const configs = {
   },
   imageConfig: ImageConfig,
   objectsConfig: ObjectConfig,
-  pathConfig: PathConfig
+  pathConfig: PathConfig,
+  videoConfig: VideoConfig
 };
 
 export default class Bottom extends Component {
@@ -161,6 +163,7 @@ export default class Bottom extends Component {
               <option value="image">Image</option>
               <option value="objects">Objects</option>
               <option value="path">Paths</option>
+              <option value="video">Video</option>
             </Input>
             {selectedLayer.type === "objects" && (
               <Fragment>
@@ -174,15 +177,28 @@ export default class Bottom extends Component {
                   onChange={evt => updateSpeed(evt.target.value)}
                 >
                   <option value="1000">Instant</option>
-                  <option value="2">Warp</option>
-                  <option value="1">Very Fast</option>
-                  <option value="0.6">Fast</option>
-                  <option value="0.4">Moderate</option>
-                  <option value="0.1">Slow</option>
-                  <option value="0.05">Very Slow</option>
+                  <option value="1.5">Warp</option>
+                  <option value="0.2">Very Fast</option>
+                  <option value="0.08">Fast</option>
+                  <option value="0.05">Moderate</option>
+                  <option value="0.02">Slow</option>
+                  <option value="0.008">Very Slow</option>
                 </Input>
               </Fragment>
             )}
+
+            <Fragment>
+              <Label>Opacity</Label>
+              <Input
+                type="range"
+                size="sm"
+                min={0}
+                max={1}
+                step={0.01}
+                value={selectedLayer.opacity}
+                onChange={evt => this.updateLayer("opacity", evt.target.value)}
+              />
+            </Fragment>
           </Col>
           <Col sm={9}>
             {(() => {
