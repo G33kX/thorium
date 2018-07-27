@@ -36,7 +36,11 @@ export default function renderCards(props) {
       variables
     });
   };
-  if (clientObj.hypercard && Views[clientObj.hypercard]) {
+  if (
+    !clientObj.offlineState &&
+    clientObj.hypercard &&
+    Views[clientObj.hypercard]
+  ) {
     const Comp = Views[clientObj.hypercard];
     return (
       <CardHolder component={Comp} {...props} stopTraining={stopTraining} />

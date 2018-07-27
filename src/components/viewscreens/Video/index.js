@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Asset } from "../../../helpers/assets";
 import gql from "graphql-tag";
 import { withApollo } from "react-apollo";
-import "./style.css";
+import "./style.scss";
 
 class VideoConfig extends Component {
   player = React.createRef();
@@ -85,7 +85,7 @@ class VideoConfig extends Component {
             <video
               ref={this.player}
               src={`${window.location.origin}${src}`}
-              autoPlay={data.autoplay !== false || true}
+              autoPlay={data.autoplay}
               muted
               loop={data.loop}
               onEnded={videoEnd}

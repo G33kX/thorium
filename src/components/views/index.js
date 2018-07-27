@@ -71,6 +71,8 @@ import Decontamination from "./Decontamination";
 import MedicalRoster from "./MedicalRoster";
 import Sickbay from "./Sickbay";
 import CommReview from "./CommReview";
+import Thx from "./Thx";
+import DilithiumStress from "./DilithiumStress";
 
 import EngineControlCore from "./EngineControl/core";
 import TransporterCore from "./Transporters/core";
@@ -124,6 +126,8 @@ import ArmoryCore from "./Armory/core";
 import ComputerCoreCore from "./ComputerCore/core";
 import DecontaminationCore from "./Decontamination/core";
 import SickbayCore from "./Sickbay/core";
+import ThxCore from "./Thx/core";
+import CommConvoCore from "./CommDecoding/convoCore";
 
 import ComposerWidget from "./LongRangeComm/Composer";
 import CalculatorWidget from "./Widgets/calculator";
@@ -202,7 +206,9 @@ const Views = {
   Decontamination,
   MedicalRoster,
   Sickbay,
-  CommReview
+  CommReview,
+  Thx,
+  DilithiumStress
 };
 
 export const Widgets = {
@@ -324,7 +330,9 @@ export const Cores = {
   ArmoryCore,
   ComputerCoreCore,
   DecontaminationCore,
-  SickbayCore
+  SickbayCore,
+  ThxCore,
+  CommConvoCore
 };
 
 export default Views;

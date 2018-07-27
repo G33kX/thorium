@@ -44,14 +44,10 @@ import { ObjectiveMutations } from "./objective.js";
 import { KeyboardMutations } from "./keyboard.js";
 import { ComputerCoreMutations } from "./computerCore.js";
 import { SickbayMutations } from "./sickbay.js";
+import { ThxMutations } from "./thx.js";
 import { ThoriumMutations } from "./thorium.js";
 
 const mutationMap = Object.assign(
-  {
-    snapshot() {
-      App.snapshot(true);
-    }
-  },
   FlightStructureMutations,
   ClientMutations,
   ShieldMutations,
@@ -97,6 +93,7 @@ const mutationMap = Object.assign(
   KeyboardMutations,
   ComputerCoreMutations,
   SickbayMutations,
+  ThxMutations,
   ThoriumMutations
 );
 

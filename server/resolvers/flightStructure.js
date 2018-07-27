@@ -132,6 +132,9 @@ export const FlightStructureMutations = {
   setBridgeMessaging(rootValue, params, context) {
     App.handleEvent(params, "setBridgeMessaging", context);
   },
+  setSimulatorAssets(rootValue, params, context) {
+    App.handleEvent(params, "setSimulatorAssets", context);
+  },
   // Timeline
   addTimelineStep(root, args, context) {
     App.handleEvent(
@@ -211,6 +214,9 @@ export const FlightStructureMutations = {
   },
   setStationLogin(root, args, context) {
     App.handleEvent(args, "setStationLogin", context);
+  },
+  setStationExecutive(root, args, context) {
+    App.handleEvent(args, "setStationExecutive", context);
   },
   toggleStationWidgets(root, args, context) {
     App.handleEvent(args, "toggleStationWidgets", context);

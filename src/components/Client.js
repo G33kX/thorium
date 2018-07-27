@@ -7,7 +7,7 @@ import gql from "graphql-tag";
 import { graphql, withApollo } from "react-apollo";
 import Caching from "./caching";
 import playSound from "./generic/SoundPlayer";
-import "./client.css";
+import "./client.scss";
 
 class ClientWrapper extends Component {
   constructor(props) {
@@ -89,8 +89,27 @@ const creditList = [
     content: "Nathan King 👑"
   },
   {
-    header: "Testing & Debugging",
-    content: "Isaac Ostler 🚑"
+    header: "Bug Reports & Feature Suggestions",
+    content: (
+      <ul style={{ listStyle: "none" }}>
+        <li>Ryan Anderson</li>
+        <li>Alex DeBirk</li>
+        <li>Nathan King</li>
+        <li>Parriss King</li>
+        <li>Daniel Kirpatrick</li>
+        <li>Isaac Ostler</li>
+        <li>Matt Ricks</li>
+        <li>
+          <code>aBlueShadow</code>
+        </li>
+        <li>
+          <code>J-F1</code>
+        </li>
+        <li>
+          <code>kimballfrank</code>
+        </li>
+      </ul>
+    )
   },
   {
     header: "Donors",
@@ -136,6 +155,12 @@ const creditList = [
           Victor Williamson
           <span role="img" aria-label="donor-tag">
             👽
+          </span>
+        </li>
+        <li>
+          Ryan Anderson
+          <span role="img" aria-label="donor-tag">
+            🔭
           </span>
         </li>
       </ul>
@@ -284,10 +309,18 @@ const CLIENT_SUB = gql`
         alertlevel
         layout
         bridgeOfficerMessaging
+        assets {
+          mesh
+          texture
+          side
+          top
+          logo
+        }
       }
       station {
         name
         login
+        executive
         messageGroups
         widgets
         cards {
@@ -299,6 +332,7 @@ const CLIENT_SUB = gql`
       loginState
       offlineState
       hypercard
+      movie
       training
       caches
     }
@@ -413,6 +447,7 @@ class ClientView extends Component {
                   offlineState,
                   station,
                   hypercard,
+                  movie,
                   training,
                   caches,
                   __typename
@@ -423,6 +458,7 @@ class ClientView extends Component {
                   loginState,
                   offlineState,
                   hypercard,
+                  movie,
                   training,
                   caches,
                   station,
@@ -572,10 +608,18 @@ const ClientQuery = gql`
         alertlevel
         layout
         bridgeOfficerMessaging
+        assets {
+          mesh
+          texture
+          side
+          top
+          logo
+        }
       }
       station {
         name
         login
+        executive
         messageGroups
         widgets
         cards {
@@ -587,6 +631,7 @@ const ClientQuery = gql`
       loginState
       offlineState
       hypercard
+      movie
       training
       caches
     }

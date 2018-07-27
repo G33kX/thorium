@@ -5,7 +5,7 @@ import uuid from "uuid";
 //Creating a new long range message
 App.on(
   "sendLongRangeMessage",
-  ({ id, simulatorId, message, crew, decoded, sender }) => {
+  ({ id, simulatorId, message = "", crew, decoded, sender }) => {
     let system;
     if (id) {
       system = App.systems.find(s => s.id === id);
@@ -147,6 +147,15 @@ App.on("updateLongRangeComm", ({ longRangeComm }) => {
       "addCoreFeed"
     );
   }
+  pubsub.publish(
+    "longRangeCommunicationsUpdate",
+    App.systems.filter(s => s.type === "LongRangeComm")
+  );
+});
+
+App.on("setLongRangeSatellites", ({ id, num }) => {
+  const lr = App.systems.find(s => s.id === id);
+  lr.setSatellites(num);
   pubsub.publish(
     "longRangeCommunicationsUpdate",
     App.systems.filter(s => s.type === "LongRangeComm")

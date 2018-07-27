@@ -4,6 +4,7 @@ import { pubsub } from "../helpers/subscriptionManager";
 import * as Classes from "../classes";
 
 const sendUpdate = sys => {
+  if (!sys) return;
   if (sys.type === "Engine") pubsub.publish("engineUpdate", sys);
   if (sys.type === "Transporters") pubsub.publish("transporterUpdate", sys);
   if (sys.type === "Shield")
@@ -65,6 +66,11 @@ const sendUpdate = sys => {
     pubsub.publish(
       "signalJammersUpdate",
       App.systems.filter(s => s.type === "SignalJammer")
+    );
+  if (sys.type === "StealthField")
+    pubsub.publish(
+      "stealthFieldUpdate",
+      App.systems.filter(s => s.type === "StealthField")
     );
   if (sys.class === "DockingPort")
     pubsub.publish("dockingUpdate", App.dockingPorts);

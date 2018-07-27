@@ -8,7 +8,6 @@ addons:
     repo_token: $CODECLIMATE_REPO_TOKEN
 install:
   - npm install
-  - npm run build-css
 script:
   - npm run test:client -- --coverage --forceExit
   - npm run test:server -- --coverage --forceExit

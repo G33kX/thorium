@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import SubscriptionHelper from "../../../helpers/subscriptionHelper";
 import Template from "./template";
-import "./style.css";
+import "./style.scss";
 
 const queryData = `
 `;
@@ -40,7 +40,7 @@ class TemplateData extends Component {
                   variables: { simulatorId: this.props.simulator.id },
                   updateQuery: (previousResult, { subscriptionData }) => {
                     return Object.assign({}, previousResult, {
-                      computerCore: subscriptionData.data.templateUpdate
+                      template: subscriptionData.data.templateUpdate
                     });
                   }
                 })

@@ -15,7 +15,7 @@ import {
   InputGroup,
   InputGroupAddon
 } from "reactstrap";
-import "./style.css";
+import "./style.scss";
 
 const MESSAGING_SUB = gql`
   subscription GotMessage($simulatorId: ID!, $station: String) {
@@ -155,7 +155,6 @@ class Messaging extends Component {
         if (new Date(a.timestamp) < new Date(b.timestamp)) return 1;
         return 0;
       });
-    console.log(bridgeOfficerMessaging);
     return (
       <Container className="messages">
         <Row>
@@ -323,6 +322,7 @@ const MESSAGING_QUERY = gql`
       type
     }
     simulators(id: $simId) {
+      id
       bridgeOfficerMessaging
       stations {
         name

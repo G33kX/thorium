@@ -5,8 +5,9 @@ import { graphql, Mutation } from "react-apollo";
 import { Link } from "react-router-dom";
 import semver from "semver";
 import Tour from "reactour";
-
-import "./welcome.css";
+import { FormattedMessage } from "react-intl";
+import SubscriptionHelper from "../../helpers/subscriptionHelper";
+import "./welcome.scss";
 
 const FLIGHT_SUB = gql`
   subscription FlightsChanged {
@@ -53,22 +54,18 @@ class Welcome extends Component {
           ) {
             this.setState({ outdated: res[0].name });
           }
+          if (
+            semver.minor(res[0].name) >
+              semver.minor(require("../../../package.json").version) ||
+            semver.major(res[0].name) >
+              semver.major(require("../../../package.json").version)
+          ) {
+            this.setState({ major: true });
+          }
         })
         .catch(() => {
           //Oh well.
         });
-    }
-  }
-  componentWillReceiveProps(nextProps) {
-    if (!this.subscription && !nextProps.data.loading) {
-      this.subscription = nextProps.data.subscribeToMore({
-        document: FLIGHT_SUB,
-        updateQuery: (previousResult, { subscriptionData }) => {
-          return Object.assign({}, previousResult, {
-            flights: subscriptionData.data.flightsUpdate
-          });
-        }
-      });
     }
   }
   trainingSteps = () => {
@@ -101,6 +98,18 @@ class Welcome extends Component {
     const { autoUpdate } = this.props.data.thorium;
     return (
       <Container className="WelcomeView">
+        <SubscriptionHelper
+          subscribe={() =>
+            this.props.data.subscribeToMore({
+              document: FLIGHT_SUB,
+              updateQuery: (previousResult, { subscriptionData }) => {
+                return Object.assign({}, previousResult, {
+                  flights: subscriptionData.data.flightsUpdate
+                });
+              }
+            })
+          }
+        />
         <Row>
           <Col sm={12} className="title-row">
             <h1 className="text-center">Thorium</h1>
@@ -108,39 +117,58 @@ class Welcome extends Component {
               <small>{this.state.quote}</small>
             </h3>
             {autoUpdate &&
-              this.state.outdated && (
-                <Alert color="warning">
-                  Your version of Thorium is outdated. Current version is{" "}
-                  {this.state.outdated}. Your version is{" "}
-                  {require("../../../package.json").version}.
+              (this.state.outdated || this.state.upgrading) && (
+                <Alert color={this.state.major ? "danger" : "warning"}>
+                  <FormattedMessage
+                    id="upgrade-warning"
+                    defaultMessage="Your version of Thorium is outdated. Current version is {newVersion}. Your version is {oldVersion}"
+                    values={{
+                      oldVersion: require("../../../package.json").version,
+                      newVersion: this.state.outdated
+                    }}
+                  />{" "}
+                  {this.state.major && (
+                    <strong>
+                      <FormattedMessage
+                        id="major-upgrade-warning"
+                        defaultMessage="This is a major upgrade. Make sure you backup your Thorium data directory and program file before performing this upgrade."
+                      />
+                    </strong>
+                  )}
                   <p>
-                    <Mutation
-                      mutation={gql`
-                        mutation TriggerAutoUpdate {
-                          triggerAutoUpdate
-                        }
-                      `}
-                    >
-                      {action => (
-                        <Button
-                          style={{ marginLeft: "50px" }}
-                          className="pull-right"
-                          outline
-                          color="secondary"
-                          onClick={() => {
-                            action();
-                            this.setState({ outdated: false });
-                          }}
-                        >
-                          Download Update
-                        </Button>
-                      )}
-                    </Mutation>
-                    <small>
-                      The update is downloading in the background. Wait until
-                      the Thorium Server command line window says "Download
-                      Complete" before restarting Thorium Server
-                    </small>
+                    {!this.state.upgrading && (
+                      <Mutation
+                        mutation={gql`
+                          mutation TriggerAutoUpdate {
+                            triggerAutoUpdate
+                          }
+                        `}
+                      >
+                        {action => (
+                          <Button
+                            outline
+                            color="secondary"
+                            onClick={() => {
+                              action();
+                              this.setState({
+                                outdated: false,
+                                upgrading: true
+                              });
+                            }}
+                          >
+                            Download Update
+                          </Button>
+                        )}
+                      </Mutation>
+                    )}
+                    {this.state.upgrading && (
+                      <small>
+                        <FormattedMessage
+                          id="upgrade-instructions"
+                          defaultMessage="The update is downloading in the background. Wait until the Thorium Server command line window says 'Download Complete' before restarting Thorium Server"
+                        />
+                      </small>
+                    )}
                   </p>
                 </Alert>
               )}

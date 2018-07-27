@@ -1,8 +1,9 @@
 import React from "react";
-import "./style.css";
+import "./style.scss";
 
 const DamageOverlay = ({ message = "", system, style }) => {
   let reason = null;
+  if (!system) return null;
   if (
     system.power &&
     system.power.powerLevels &&

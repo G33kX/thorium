@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Asset } from "../../../helpers/assets";
 import gql from "graphql-tag";
 import { graphql, withApollo } from "react-apollo";
-import "./style.css";
+import "./style.scss";
 
 const SYSTEMS_SUB = gql`
   subscription SystemsUpdate($simulatorId: ID) {
@@ -53,10 +53,7 @@ class DamageMonitoring extends Component {
       <div className="damage-monitoring">
         <h1>Damage Monitor</h1>
         <div className="ship-view">
-          <Asset
-            asset="/Ship Views/Right"
-            simulatorId={this.props.simulator.id}
-          >
+          <Asset asset={this.props.simulator.assets.side}>
             {({ src }) => {
               return (
                 <div

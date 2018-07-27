@@ -8,7 +8,7 @@ import AnimatedNumber from "react-animated-number";
 
 import HeatBar from "../EngineControl/heatbar";
 import ReactorModel from "./model";
-import "./style.css";
+import "./style.scss";
 
 const SYSTEMS_SUB = gql`
   subscription SystemsUpdate($simulatorId: ID) {
@@ -386,7 +386,13 @@ const Battery = ({ level = 1 }) => {
   return (
     <div className="battery">
       <div className="battery-bar" style={{ height: `${level * 100}%` }} />
-      <div className="battery-level">{Math.round(level * 100)}</div>
+      <div className="battery-level">
+        <AnimatedNumber
+          value={level}
+          duration={1000}
+          formatValue={n => `${Math.round(n * 100)}`}
+        />
+      </div>
     </div>
   );
 };

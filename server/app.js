@@ -2,8 +2,6 @@ import fs from "fs";
 import jsonfile from "jsonfile";
 import { EventEmitter } from "events";
 import util from "util";
-import cloneDeep from "lodash/cloneDeep";
-import { writeFile } from "./helpers/json-format";
 import * as Classes from "./classes";
 import paths from "./helpers/paths";
 
@@ -100,9 +98,9 @@ class Events extends EventEmitter {
     const dev =
       !process.env.NODE_ENV && fs.existsSync(snapshotDir + "snapshot-dev.json");
     this.snapshotVersion = this.version;
-    const snap = cloneDeep(this, true);
-    const snapshot = this.trimSnapshot(snap);
-    writeFile(snapshotDir + "snapshot-save.json", snapshot, () => {
+    const snap = { ...this };
+    const snapshot = JSON.stringify(this.trimSnapshot(snap), null, "\t") + "\n";
+    fs.writeFile(snapshotDir + "snapshot-save.json", snapshot, () => {
       //Copy the current snapshot to a restore file
       fs.copyFile(
         snapshotDir + (dev ? "snapshot-dev.json" : "snapshot.json"),
@@ -218,5 +216,4 @@ App.on("error", function(err) {
   console.log("here's an error!");
   console.error(err);
 });
-
 export default App;

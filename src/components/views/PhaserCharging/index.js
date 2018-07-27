@@ -5,7 +5,7 @@ import { graphql, withApollo } from "react-apollo";
 import Tour from "reactour";
 
 //import DamageOverlay from '../helpers/DamageOverlay';
-import "./style.css";
+import "./style.scss";
 export { default as PhaserFire } from "./phaserFire";
 
 const PHASERS_SUB = gql`
@@ -209,11 +209,11 @@ class PhaserCharging extends Component {
             </Row>
           </Col>
         </Row>
-        <PhaserArc
+        {/* <PhaserArc
           client={this.props.client}
           phaserId={phasers.id}
           arc={phasers.arc}
-        />
+        /> */}
         <Tour
           steps={trainingSteps}
           isOpen={this.props.clientObj.training}

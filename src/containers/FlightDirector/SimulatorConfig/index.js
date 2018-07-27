@@ -14,7 +14,7 @@ import { Query, withApollo } from "react-apollo";
 import SimulatorProperties from "./SimulatorProperties";
 import * as Config from "./config";
 
-import "./SimulatorConfig.css";
+import "./SimulatorConfig.scss";
 
 const query = `id
 name
@@ -63,6 +63,13 @@ optionalDamageSteps {
     query
     reactivate
   }
+}
+assets {
+  mesh
+  texture
+  side
+  top
+  logo
 }
 systems {
   id
@@ -115,6 +122,7 @@ stationSets {
   stations {
     name
     login
+    executive
     messageGroups
     widgets
     cards {
@@ -143,6 +151,7 @@ const STATIONSET_SUB = gql`
         name
         login
         messageGroups
+        executive
         widgets
         cards {
           name
@@ -226,11 +235,14 @@ class SimulatorConfig extends Component {
             >
               Export
             </Button>
-            <ButtonGroup>
-              <Button onClick={this.removeSimulator} size="sm" color="danger">
-                Remove
-              </Button>
-            </ButtonGroup>
+            <Button
+              block
+              onClick={this.removeSimulator}
+              size="sm"
+              color="danger"
+            >
+              Remove Simulator
+            </Button>
           </Col>
           <Col sm={10}>
             <Card>

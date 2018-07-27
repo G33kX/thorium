@@ -17,7 +17,7 @@ import gql from "graphql-tag";
 
 import IssueTracker from "../../components/admin/IssueTracker";
 
-import "./sideNav.css";
+import "./sideNav.scss";
 
 const makeLinks = () => {
   const links = [
@@ -39,7 +39,7 @@ const makeLinks = () => {
     {
       name: "Asset Config",
       icon: "picture-o",
-      link: "/config/assets"
+      link: "/config/assetConfig"
     },
     {
       name: "Mission Config",

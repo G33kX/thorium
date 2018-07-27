@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import Measure from "react-measure";
 import ThreeView from "./three-view";
 import { Asset } from "../../../helpers/assets";
-import "./style.css";
+import "./style.scss";
 
 class ShipModel extends Component {
   state = {};
   render() {
-    const { viewscreen = { data: "{}" } } = this.props;
+    const {
+      viewscreen = { data: "{}" },
+      simulator: { assets }
+    } = this.props;
     const data = JSON.parse(viewscreen.data);
     const { title, description } = data;
     return (
@@ -22,7 +25,7 @@ class ShipModel extends Component {
             <p>{description}</p>
           </div>
         )}
-        <Asset asset={data.mesh || "/3D/Mesh/Simulator"}>
+        <Asset asset={data.mesh || assets.mesh}>
           {({ src }) => (
             <Measure
               bounds

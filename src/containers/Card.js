@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FormattedMessage } from "react-intl";
 import Layouts from "../components/layouts";
 import Keyboard from "../components/views/Keyboard";
 import ActionsMixin from "../components/generic/Actions";
@@ -29,6 +30,13 @@ const CardRenderer = props => {
           name: "Test",
           alertLevel: "5",
           layout: "LayoutCorners"
+        },
+        assets: {
+          mesh: "/Simulator/default/mesh.obj",
+          texture: "/Simulator/default/texture.png",
+          side: "/Simulator/default/side.png",
+          top: "/Simulator/default/top.png",
+          logo: "/Simulator/default/logo.svg"
         },
         station: {
           name: "Test",
@@ -75,7 +83,11 @@ const CardRenderer = props => {
     );
   }
   if (station.name === "Sound") {
-    return <div className="keyboard-holder">Sound Player</div>;
+    return (
+      <div className="keyboard-holder">
+        <FormattedMessage id="sound-player" defaultMessage="Sound Player" />
+      </div>
+    );
   }
   return (
     <LayoutComponent
@@ -124,21 +136,23 @@ export default class CardFrame extends Component {
     }
     return false;
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.station.name !== this.props.station.name) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.station.name !== this.props.station.name) {
       this.setState({
-        card: nextProps.station.cards[0].name
+        card: this.props.station.cards[0].name
       });
     }
   }
   changeCard = name => {
     this.setState({
-      card: name
+      card: this.props.station.cards.find(c => c.name === name)
+        ? name
+        : this.props.station.cards[0].name
     });
   };
   render() {
     return (
-      <ActionsMixin {...this.props}>
+      <ActionsMixin {...this.props} changeCard={this.changeCard}>
         <CardRenderer
           {...this.props}
           card={this.state.card}

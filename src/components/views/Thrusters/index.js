@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import Draggable from 'gsap/src/uncompressed/utils/Draggable';
 import gql from "graphql-tag";
 import { graphql, compose } from "react-apollo";
 import { DraggableCore } from "react-draggable";
@@ -10,7 +9,7 @@ import Measure from "react-measure";
 import throttle from "../../../helpers/debounce";
 
 import DamageOverlay from "../helpers/DamageOverlay";
-import "./style.css";
+import "./style.scss";
 import Tour from "reactour";
 
 const trainingSteps = [
@@ -479,6 +478,7 @@ gamepadLoop(){
                   {this.state.dimensions && (
                     <ThrusterThree
                       direction={direction}
+                      simulator={this.props.simulator}
                       simulatorId={this.props.simulator.id}
                       dimensions={this.state.dimensions}
                       rotation={thruster.rotation}

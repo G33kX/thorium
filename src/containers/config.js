@@ -18,7 +18,7 @@ import {
 } from "./FlightDirector";
 import MissionPicker from "./missionPicker";
 import SimulatorPicker from "./simulatorPicker";
-import "./config.css";
+import "./config.scss";
 
 class Config extends Component {
   state = { training: false };
@@ -62,7 +62,7 @@ class Config extends Component {
             )}
           />
           <Route
-            path="/config/assets"
+            path="/config/assetConfig"
             render={props => (
               <AssetConfig {...props} {...this.trainingProps()} />
             )}

@@ -4,7 +4,7 @@ import { graphql, withApollo } from "react-apollo";
 import Preview from "../../views/TacticalMap/preview";
 //import { Asset } from "../../../helpers/assets";
 
-//import "./style.css";
+//import "./style.scss";
 
 const TACTICALMAP_SUB = gql`
   subscription UpdateTacticalMap($flightId: ID) {
@@ -202,9 +202,15 @@ class TacticalMapViewscreen extends Component {
     const selectedTacticalMap = this.props.data.tacticalMaps.find(
       t => t.id === tacticalMapId
     );
+    const { cardName } = this.props;
     const layers = this.state.layers[tacticalMapId];
     return (
-      <div className="viewscreen-tacticalMap">
+      <div
+        className="viewscreen-tacticalMap"
+        style={{
+          transform: cardName ? `scale(${window.innerWidth / 1920})` : null
+        }}
+      >
         {selectedTacticalMap && (
           <Preview
             simulatorId={this.props.simulator.id}

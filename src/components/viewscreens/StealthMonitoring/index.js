@@ -7,7 +7,7 @@ import TransitionGroup from "react-transition-group/TransitionGroup";
 import Transitioner from "../../views/helpers/transitioner";
 import { Asset } from "../../../helpers/assets";
 
-import "./style.css";
+import "./style.scss";
 
 class StealthBars extends Transitioner {
   systemName(sys) {
@@ -209,10 +209,7 @@ class StealthField extends Component {
         <Row>
           <Col sm="3" />
           <Col sm="6">
-            <Asset
-              asset="/Ship Views/Right"
-              simulatorId={this.props.simulator.id}
-            >
+            <Asset asset={this.props.simulator.assets.side}>
               {({ src }) => {
                 return (
                   <div
