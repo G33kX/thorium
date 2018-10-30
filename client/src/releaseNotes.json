@@ -1,0 +1,281 @@
+{
+  "1.0.21": {
+    "features": [
+      "Added the particle detector, Magellan 2012 style. It has a fixed set of icons and types, but those can be expanded through code if necessary.",
+      "Added the 'Alertnate Sensors Core', for sensors grid-type things that aren't relevant to the main sensors grid. This includes the particle detector, science probes burst, and defense probes.",
+      "Adds an option to make the controls uppercase text when configuring the simulator.",
+      "Provide alternate labels for engineering report screen.",
+      "Add ability to adjust rotation speed of the ship model viewscreen."
+    ],
+    "fixes": [
+      "Fixes a bug that made it impossible to change shuttle names from the core.",
+      "Fixes a minor bug with transporters.",
+      "Minor change that improves the status screen."
+    ]
+  },
+  "1.0.20": {
+    "features": [
+      "Add a 'New Messaging' Core. This hopefully will make intership messaging easier and more straightforward.",
+      "Add flash option to the processed data macro.",
+      "Phasers now properly support different names for the system."
+    ],
+    "fixes": ["Fixes an issue where messages are duplicated on the core."]
+  },
+  "1.0.19": {
+    "features": [
+      "Add a low power viewscreen.",
+      "Add a core for handheld scanners. To be used with the Thorium Mobile app.",
+      "Add some visuals to the security decks screen.",
+      "Crew deck location is now tracked. Crew will move to the appropriate deck when on a team and will evacuate a deck when it is evacuated. Crew will also obey if the bulkhead doors are closed.",
+      "Add some long range message presets.",
+      "Adjust probe construction to make it more friendly for touchscreens.",
+      "Add setting the self destruct code back in. Self destruct now requires the code to turn it on and off. Better support for touchscreens too."
+    ],
+    "fixes": [
+      "Fixed an issue with the targeting grid interference not showing up on the standalone targeting screen.",
+      "The reset timeline event will no longer reset the timeline for the simulator.",
+      "Add proper scrolling to the step list when making mission timelines. "
+    ]
+  },
+  "1.0.18": {
+    "features": [
+      "Add interference to the targeting grid.",
+      "Add training for the code cyphers screen.",
+      "Add an assets core for dynamically changing simulator assets.",
+      "Add colors to hilite the deck colors based on evac, doors, or tranzine status on the security decks screen.",
+      "Add the ability to rename keyboards.",
+      "Make it possible to damage shuttlebays.",
+      "Add additional sensors scan answer presets.",
+      "Add better notifications for the keypad core."
+    ],
+    "fixes": [
+      "Adds the bridge map asset item to the simulator config.",
+      "Adds the ability to clear station-specfic training.",
+      "Fix an issue with card switchers on certain layouts.",
+      "Fixes the color of the hilite on the computer core screen for better contrast.",
+      "Multiple lines now work for intership messages.",
+      "Allow the tractor beam to be properly renamed on the tractor beam card.",
+      "Make it possible to properly break the signal jammer.",
+      "Signal jammer stealth factor is now dependant on whether the system is active or not.",
+      "Fix an issue with exporting keyboards."
+    ]
+  },
+  "1.0.17": {
+    "fixes": [
+      "Add phaser arc back to the phaser charging screen.",
+      "Make it so thrusters don't show erronious numbers, like 360˚.",
+      "Shield frequencies are now properly limited to below 350 MHz",
+      "Tactical map objects will no longer shake when traveling at high speeds.",
+      "Update the dilithium stress animation to be prettier."
+    ],
+    "features": [
+      "Add support for Thorium Mobile, a companion mobile app. Check https://thoriumsim.com/download for information about downloading the mobile apps.",
+      "Add a keypad core for the keypad screen on the mobile application."
+    ]
+  },
+  "1.0.16": {
+    "features": [
+      "Added the ability to un-complete a mission objective from the core.",
+      "Added the ability to mark a mission objective as cancelled.",
+      "Add a compose button to the long range communications card so you don't need the widget.",
+      "Add a preview for intership message timeline items.",
+      "Team officers are now sorted by position, making it easier to find a specific position.",
+      "Allow for selecting timeline item info from the preview.",
+      "Add alerts for engines and reactor overheating.",
+      "Add a 'Finish Decontamination' button to core.",
+      "Add the ability to change how fast the transporters can be charged.",
+      "Change the login screen to say 'Officer' instead of 'Agent'."
+    ],
+    "fixes": [
+      "Update dependency package versions.",
+      "Improve the speed of messages from the server by replacing the caching package.",
+      "Probes will now be completely overwritten with the default probe and equipment on a new flight.",
+      "All button text on Layout Glass should be white, improving legibility.",
+      "Improve the layout of the power routing screen for JR engineering."
+    ]
+  },
+  "1.0.15": {
+    "features": [
+      "Add options to remove and destroy sensor contacts from the 'Ask for Speed' popover"
+    ],
+    "fixes": [
+      "Fix some issues with the short range comm core.",
+      "Fixes issues with uploading assets on Firefox. Also fixes issues with multiple uploads.",
+      "Makes probe queries easier to recognize on core by changing the text to red.",
+      "Make damage report status more clear on the damage reports core. Reactivation code requests come through as purple."
+    ]
+  },
+  "1.0.13": {
+    "fixes": [
+      "Fixes an issue with tactical map icons not being totally transparent when loaded.",
+      "Fixes an issue where sending a course through mission presets doesn't send the course.",
+      "Set's station names are now properly renamed when a station is renamed.",
+      "Fixes saving inventory in certain circumstances."
+    ]
+  },
+  "1.0.12": {
+    "features": ["Add a thrusters adjustment viewscreen card."],
+    "fixes": [
+      "Add clock syncing between the server and the client. This will match sensors and the railgun up a bit more.",
+      "Fixed the layout of the software panels."
+    ]
+  },
+  "1.0.11": {
+    "features": [
+      "Add a Thrusters Lite card that removes the 3d view from the center of the screen.",
+      "Added the ability to assign training recordings to individual stations. These recordings will appear when training mode is on for the simulator. The recordings can be either videos or audio and will persist between card changes."
+    ],
+    "fixes": ["Add icons for all of the junior cards."]
+  },
+  "1.0.10": {
+    "features": [
+      "Add a bridge map card and core for running actions on specific clients. Note that this requires a specially configured SVG to work properly. Please see https://thoriumsim.com/docs/bridge-map/ for more information."
+    ],
+    "fixes": [
+      "Fixes an issue with inserting timeline events.",
+      "If traveling at a speed, the stars viewscreen will now properly show the speed instead of ramping up from stopped every time.",
+      "When configuring sensor contacts in mission configurations, the contact information will now update.",
+      "Bridge officer messaging settings will now properly transfer from the template simulator.",
+      "Fixes an issue where alert conditions don't reset with the flight.",
+      "Fixes an issue with the initialization of reactors.",
+      "Fixes an issue with saving velocities on engines."
+    ]
+  },
+  "1.0.9": {
+    "features": [
+      "Added the ability to play random sounds from within a folder in the sound player macro."
+    ],
+    "fixes": [
+      "Fixed an issue with sending action commands.",
+      "Fixed an issue with adding locations to systems.",
+      "Fluxing power to all systems will no longer adjust systems with no power levels."
+    ]
+  },
+  "1.0.8": {
+    "fixes": [
+      "Fixed an issue with the layout of torpedo launchers on the Targeting screen.",
+      "Fixed an issue where sound effects play again when the simulator changes.",
+      "Fixed an issue where you can only type one character at a time when changing card names."
+    ]
+  },
+  "1.0.7": {
+    "features": [
+      "Added timeline events for adding and removing interception signals.",
+      "Added timeline events for adding and removing targeting target classes."
+    ],
+    "fixes": ["Improved how timeline event names display."]
+  },
+  "1.0.6": {
+    "features": [
+      "Added a special sound picker which allows for nested folders. This allows you to add folders to your sounds folder and pick from any sound within any of those folders.",
+      "Add the ability to export keyboards and tactical maps."
+    ],
+    "fixes": [
+      "Fix an issue with the viewscreen not properly showing up, particularly with the timer viewscreen.",
+      "Fix scrolling on the sets control. Also adds sound player and keyboards to the station options when configuring a set.",
+      "Fixes for issues with configuring the software panels.",
+      "Fixes for the stealth field animation.",
+      "Fixes for damage report configurations not being editable.",
+      "Fixes an issue where the library buttons for importing, exporting, and deleting were hidden.",
+      "Fixes an issue where certain actions aren't working properly.",
+      "Fixes an issue where changing the mosaic layout to a saved layout isn't persisted when navigating away from the core."
+    ]
+  },
+  "1.0.5": {
+    "fixes": [
+      "Fixed the rotation of the jump drive colored circles.",
+      "Fixes an issue where sound effect volume levels couldn't be adjusted."
+    ]
+  },
+  "1.0.4": {
+    "features": [
+      "Added an 'Auto-Complete' toggle to the sickbay config for decontamination.",
+      "Added notifications for the Jump Drive."
+    ],
+    "fixes": [
+      "You can no longer request damage reports that have already been requested.",
+      "Improved the actions macro to support more destinations and actions.",
+      "Deleting cards on the station config should work now.",
+      "Teams must now have a name, orders, location, priority, and officers assigned before being created.",
+      "Refactored relative imports to make developer's lives easeier.",
+      "Fixed an error when generating damage team damage report steps.",
+      "Fixed an issue with communication images not rendering when they don't appear in the 'Comm Images' folder. WARNING: This might require you to redo your comm images in the short range comm system config of your simulator config."
+    ]
+  },
+  "1.0.3": {
+    "features": [
+      "Added additional German translations (Thanks aBlueShadow!)",
+      "Added the Jump Drive, a supplement to regular engines."
+    ],
+    "fixes": [
+      "Tactical map icons should start animating movement immediately and shouldn't snap to their end position so quickly.",
+      "Fixed the broken Phoenix viewscreen layout.",
+      "Fixed issues with the scaling of tactical maps on viewscreens.",
+      "Long Range Messages now show as encrypted on the animation when sent through Long Range Messages"
+    ]
+  },
+  "1.0.2": {
+    "features": ["Add Computer Core training"],
+    "fixes": ["Fixes a major issue with sensor contacts not being draggable."]
+  },
+  "1.0.1": {
+    "features": [
+      "Add notifications for when railgun projectiles hit and when they are destroyed by the railgun.",
+      "Added the ability to create extra system reports for R&D and Engineering"
+    ],
+    "fixes": [
+      "A minor fix to chaging station and station set names.",
+      "Improvements to the hotkey cores.",
+      "Renamed the 'Client Core' to 'Login Name Core' for more clarity. Split it's functionality into the 'Hypercard Core'.",
+      "Fixed an issue with styling on the navigation keypad.",
+      "Fixed an issue where phasers would send notifications when they are fired but they aren't charged.",
+      "Fixed how the probes are refered to on the torpedo loading and firing screen.",
+      "Stealth Field screen now shows the name of the system, so you can name it 'Cloaking Device', or whatever.",
+      "The stealth field won't appear as activated on the status screen if it's always on.",
+      "Fix the auto-movement on sensors.",
+      "When systems are R&D or Engineering 'damaged', they don't appear in the status screen list",
+      "Planets, borders, and pings won't appear as targeting contacts anymore."
+    ]
+  },
+  "1.0.0": {
+    "features": [
+      "First major release! Yay! 🎉",
+      "Added the ShipStation layout.",
+      "Add support for dynamic message groups. In addition to Security, Damage, and Medical teams, you can set up specific preset groups on specific stations.",
+      "Refactored the sensors grid to support any configuration of rings, lines, and alignment.",
+      "Added the ability to change targeting/weapons range.",
+      "Added the ability to insert timeline items after the currently selected timeline item."
+    ],
+    "fixes": [
+      "Viewscreens are now filtered by whether they are connected or not.",
+      "Target icon selection should now stay within the bounds of the component."
+    ]
+  },
+  "0.4.9": {
+    "features": [
+      "Added this release notes page!",
+      "Added the ability to tag sensor contacts as hostile.",
+      "Added the battle core. Hostile sensor contacts appear in this core, and can be instructed to fire on the simulator. When they fire, small projectiles appear on the sensor grid.",
+      "Added a railgun, which can be used to destroy incoming projectiles.",
+      "Added a 'Overlay' button to the viewscree core. This makes the layout overlay on top of viewscreen in all cases. This currently only applies to the Line layout.",
+      "Added ability to control the viewscreen with the page up and page down buttons - useful for using clickers.",
+      "Added sound back to the video viewscreen, but only on the actual viewscreen."
+    ],
+    "fixes": [
+      "Fixed an issue where the faces viewscreen didn't show any images.",
+      "Fixed a minor issue with dilithium stress that caused the viewscreen to break.",
+      "Fixed an issue with the ship view viewscreen component where you couldn't type in text."
+    ]
+  },
+  "0.4.8": {
+    "features": ["Added the dilithium stress status to the status card."],
+    "fixes": [
+      "Fixed an issue with the line layout.",
+      "Added scrolling to the simulator and mission lists.",
+      "Fixed an issue that could happen when making new flights.",
+      "Cleaned up places where checkboxes overlay.",
+      "Fixed an issue with the curve frame card switcher.",
+      "Fixed the Begin Training button on the login screen."
+    ]
+  }
+}
