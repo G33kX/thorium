@@ -1,0 +1,40 @@
+.missionConfig .scroll {
+  overflow-y: scroll; }
+
+.missionConfig li.selected {
+  background-color: rgba(0, 0, 0, 0.1); }
+
+.missionConfig .magic-container {
+  display: flex; }
+
+.missionConfig .magic-child {
+  margin: 0 20px; }
+
+.missionConfig .loading {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  .missionConfig .loading h1,
+  .missionConfig .loading h4 {
+    color: white; }
+  .missionConfig .loading svg {
+    width: 20%;
+    height: 20%;
+    animation: spinloader 0.5s linear infinite; }
+  .missionConfig .loading svg path,
+  .missionConfig .loading svg rect {
+    fill: #ff6700; }
+
+@keyframes spinloader {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(359deg); } }
